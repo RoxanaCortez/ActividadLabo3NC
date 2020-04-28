@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.uca.capas.domain.Student;
 
@@ -26,6 +28,24 @@ public class MainController {
 				new Student("Nombre1", "Apellido", "10/10/1992","Carrera X", true),
 				new Student("Nombre2", "Apellido", "10/10/1992", "Ingeniería en Limones", false)
 				);
+	}
+	
+	
+	@GetMapping("/inicio") 	//punto de inicio
+	public String inicio(Student student) {
+		return "index";
+	}
+	
+	
+	@PostMapping("/formData") 
+	//devolveremos un ModelAndView
+	public ModelAndView procesar(Student student) {//recibimos el objeto mappeado student que estaba en el formulario 
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("prueba");
+		mav.addObject("estado", student.delegateEstado()); //con mav puedo añadir distintos objetos a mi vista
+		mav.addObject("student", student);
+		
+		return mav;
 	}
 
 }
