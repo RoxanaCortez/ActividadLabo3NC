@@ -1,5 +1,6 @@
 package com.uca.capas.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,6 +15,10 @@ import com.uca.capas.domain.Student;
 
 @Controller
 public class MainController {
+	
+	//arreglo de estudiantes
+	private List<Student> students = new ArrayList<Student>();
+	
 	//Ejemplo 1 ResponseBody
 	@GetMapping(path = "/ejemplo1", produces = MediaType.TEXT_PLAIN_VALUE) //devuelve texto plano en lugar de texto http
 	@ResponseBody
@@ -40,11 +45,10 @@ public class MainController {
 	@PostMapping("/formData") 
 	//devolveremos un ModelAndView
 	public ModelAndView procesar(Student student) {//recibimos el objeto mappeado student que estaba en el formulario 
+		students.add(student);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("prueba");
-		mav.addObject("estado", student.delegateEstado()); //con mav puedo añadir distintos objetos a mi vista
-		mav.addObject("student", student);
-		
+		mav.setViewName("index");
+		mav.addObject("student", new Student()); //con mav puedo añadir distintos objetos a mi vista 
 		return mav;
 	}
 
