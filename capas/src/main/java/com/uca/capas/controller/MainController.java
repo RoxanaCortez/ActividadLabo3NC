@@ -51,5 +51,14 @@ public class MainController {
 		mav.addObject("student", new Student()); //con mav puedo añadir distintos objetos a mi vista 
 		return mav;
 	}
+	
+	@GetMapping("/listado") //nos llevara al listado
+	public ModelAndView listado() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("listado");
+		mav.addObject("studentList", this.students); //enviamos la lista que hemos ido guardando en fromData
+		return mav;
+	}
+	
 
 }
